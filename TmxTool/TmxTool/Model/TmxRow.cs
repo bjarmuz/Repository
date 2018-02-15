@@ -19,17 +19,24 @@ namespace TmxTool.Model
         public string LastUsedDate { get; set; }
 
         public TmxRow(List<XElement> nodeItem) {
-            Source = nodeItem[0].XPathSelectElement("seg").Value.ToString();
-            Target = nodeItem[1].XPathSelectElement("seg").Value.ToString();
+            Source = nodeItem[0].XPathSelectElement(XmlNodes.SegmentText).Value.ToString();
+            Target = nodeItem[1].XPathSelectElement(XmlNodes.SegmentText).Value.ToString();
             TargetLanguage = nodeItem[1].FirstAttribute.Value.ToString();
-            CreatedDate = nodeItem[1].Attribute("creationdate").Value.ToString();
-            CreatedBy = nodeItem[1].Attribute("creationid").Value.ToString();
-            LastUsedDate = nodeItem[1].Attribute("lastusagedate").Value.ToString();             
+            CreatedDate = nodeItem[1].Attribute(XmlNodes.CreationDate).Value.ToString();
+            CreatedBy = nodeItem[1].Attribute(XmlNodes.CreatedBy).Value.ToString();
+            LastUsedDate = nodeItem[1].Attribute(XmlNodes.LastUsedDate).Value.ToString();             
             //nodeItem[1].Attribute("changedate").Value.ToString();             
             //nodeItem[1].Attribute("changeid").Value.ToString();      
 
         }
+        private static class XmlNodes
+        {
+            public const string SegmentText = "seg";
+            public const string CreationDate = "creationdate";
+            public const string CreatedBy = "creationid";
+            public const string LastUsedDate = "lastusagedate";
 
-      
+        }
+
     }
 }

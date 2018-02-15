@@ -29,69 +29,6 @@ namespace TmxTool
 
     public partial class  MainWindow : INotifyPropertyChanged
     {
-        
-        public ObservableCollection<TmxRow> FilterBaseCollection;
-
-        private ObservableCollection<TmxRow> mainCollection;
-        public ObservableCollection<TmxRow> MainCollection
-        {
-            get { return mainCollection; }
-            set
-            {
-                if (value == mainCollection)
-                    return;
-                mainCollection = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string selectedPath;
-        public string SelectedPath
-        {
-            get { return selectedPath; }
-            set {
-                if (value == selectedPath)
-                    return;
-                selectedPath = value;
-                OnPropertyChanged();                
-            }
-        }
-
-        private bool regexSearchMethod;
-        public bool RegexSearchMethod
-        {
-            get { return regexSearchMethod; }
-            set { regexSearchMethod = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string sourceFilterString = "";
-        public string SourceFilterString
-        {
-            get { return sourceFilterString; }
-            set
-            {
-                if (value == sourceFilterString)
-                    return;
-                sourceFilterString = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string targetFilterString = "";
-        public string TargetFilterString
-        {
-            get { return targetFilterString; }
-            set
-            {
-                if (value == targetFilterString)
-                    return;
-                targetFilterString = value;
-                OnPropertyChanged();
-            }
-        }
-        
 
         public MainWindow()
         {
@@ -106,18 +43,22 @@ namespace TmxTool
         
         private async void LoadButton_Click(object sender, RoutedEventArgs e)
         {
-            List<string> newList;
+            WarningMessage = "";
+            List<string> fileList;
             try
             {
-               newList = TmxHandler.GetFileList(SelectedPath);
+               fileList = TmxHandler.GetFileList(SelectedPath);
             }
             catch (Exception)
             {
-// dodaj message boxa ktory wyswietli error. 
+
+                WarningMessage = "Invalid path...";
+
+
                 return;
             }
 
-            await Task.Run(() => MainCollection = TmxHandler.ReadTmxData(newList));                
+            await Task.Run(() => MainCollection = TmxHandler.ReadTmxData(fileList));                
             FilterBaseCollection = MainCollection;
             
         }
@@ -130,24 +71,29 @@ namespace TmxTool
         
         
         private void SourceFilter_TextChanged(object sender, TextChangedEventArgs e)
-        {            
-            if(RegexSearchMethod == true && (!TmxHandler.IsValidRegex(SourceFilterString) || !TmxHandler.IsValidRegex(TargetFilterString)))
-            {
-                return;
-            }
-            var workingCollection = FilterBaseCollection;
-            MainCollection = TmxHandler.FilterCollection(workingCollection, SourceFilterString, TargetFilterString, RegexSearchMethod);
+        {
+            FilterRecords();
         }
 
         private void TargetFilter_TextChanged(object sender, TextChangedEventArgs e)
-        {            
-            if (RegexSearchMethod == true && (!TmxHandler.IsValidRegex(SourceFilterString) || !TmxHandler.IsValidRegex(TargetFilterString)))
-            {
-                return;
-            }
-            var workingCollection = FilterBaseCollection;
-            MainCollection = TmxHandler.FilterCollection(workingCollection, SourceFilterString, TargetFilterString, RegexSearchMethod);
+        {
+            FilterRecords();
         }
+
+        private void FilterRecords()
+        {
+            if (RegexSearchMethod == true && TmxHandler.IsValidRegex(SourceFilterString, TargetFilterString))
+            {
+                var workingCollection = FilterBaseCollection;
+                MainCollection = TmxHandler.FilterCollection(workingCollection, SourceFilterString, TargetFilterString, RegexSearchMethod);
+            }
+            else
+            {
+                return;//
+            }
+        }
+
+
 
         private void FolderPath_TextChanged(object sender, TextChangedEventArgs e)
         {

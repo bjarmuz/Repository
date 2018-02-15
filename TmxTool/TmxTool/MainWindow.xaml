@@ -7,7 +7,7 @@
         xmlns:c="clr-namespace:TmxTool.BaseFunctionalities"
         
         mc:Ignorable="d"
-        Title="SDL TmxTool 1.0"  Height="1020" Width="1849" Background="LightGray" WindowState="Maximized"
+        Title="SDL TmxTool 1.0"  Height="1036.5" Width="1849" Background="LightGray" WindowState="Maximized"
         
         >
 
@@ -37,12 +37,13 @@
                   DisplayMemberPath="" 
                   IsSynchronizedWithCurrentItem="True" ColumnWidth="300" Grid.ColumnSpan="2">
         </DataGrid>
-        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="20" Margin="17,69,0,0" VerticalAlignment="Top" Width="144" Grid.Column="1"/>
+        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="20" Margin="33,975,0,0" VerticalAlignment="Top" Width="144" Grid.ColumnSpan="2"/>
         <TextBox x:Name="SourceFilter" HorizontalAlignment="Left" Height="23" Margin="36,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" TextChanged="SourceFilter_TextChanged" Grid.Column="1" Text="{Binding ElementName=ApplicationWindow, Path=SourceFilterString, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Content="Source Text Filter" HorizontalAlignment="Left" Margin="30,103,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="104" Height="23"/>
         <Label Content="Target Text Filter" Grid.Column="1" HorizontalAlignment="Left" Margin="285,102,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="TargetFilter" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="390,103,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="230" TextChanged="TargetFilter_TextChanged" Text="{Binding ElementName=ApplicationWindow, Path=TargetFilterString, UpdateSourceTrigger=PropertyChanged}"/>
         <CheckBox x:Name="RegexBoolCheckBox" Content="Regex Search" Grid.Column="1" HorizontalAlignment="Left" Margin="635,108,0,0" VerticalAlignment="Top" IsChecked="{Binding ElementName=ApplicationWindow, Path=RegexSearchMethod}"/>
+        <Label x:Name="WarningMessageLabel" Content="{Binding ElementName=ApplicationWindow, Path=WarningMessage}" Grid.Column="1" HorizontalAlignment="Left" Margin="89,972,0,0" VerticalAlignment="Top" Height="26" Width="488" FontFamily="Calibri" Foreground="#FF9E0F0F" FontSize="14"/>
 
     </Grid>
 </Window>

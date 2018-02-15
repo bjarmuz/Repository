@@ -32,10 +32,12 @@ namespace TmxTool.BaseFunctionalities
         }
         
         
+        
         public static List<string> GetFileList(string pathToFiles)
         {
             List<string> TempList = new List<string>(); 
-            if (pathToFiles.Contains(".tmx"))
+            if (pathToFiles.EndsWith(".tmx", StringComparison.CurrentCultureIgnoreCase))
+
             {
                 TempList.Add(pathToFiles);
             }
@@ -43,31 +45,41 @@ namespace TmxTool.BaseFunctionalities
             {
                 try
                 {
-                    TempList = Directory.GetFiles(pathToFiles).Where(k => k.Contains(".tmx")).ToList();
+                    TempList = Directory.GetFiles(pathToFiles).Where(k => k.EndsWith(".tmx", StringComparison.CurrentCultureIgnoreCase)).ToList();
+
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    
+                    System.Windows.MessageBox.Show("pusto");
                 }                
             }            
             return TempList;
         }
 
-        public static ObservableCollection<TmxRow> ReadTmxData(List<string> listOfFiles)
+        public static ObservableCollection<TmxRow> ReadTmxData(IList<string> fileList)
         {            
             ObservableCollection<TmxRow> TmxData = new ObservableCollection<TmxRow>();
             List<XElement> TranslationUnitList = new List<XElement>();
-            foreach (string eachPath in listOfFiles)
+            try
             {
-                TranslationUnitList.AddRange(GetTmxNodes(eachPath));
+                foreach (string eachPath in fileList)
+                {
+                    TranslationUnitList.AddRange(GetTmxNodes(eachPath));
+                }
+                foreach (var item in TranslationUnitList)
+                {
+                    List<XElement> SourceTargetList = item.Elements().ToList();
+                    TmxRow newRow = new TmxRow(SourceTargetList);
+                    TmxData.Add(newRow);
+                }
+                return TmxData;
             }
-            foreach (var item in TranslationUnitList)
+            catch (Exception)
             {
-                List<XElement> SourceTargetList = item.Elements().ToList();
-                TmxRow newRow = new TmxRow(SourceTargetList);
-                TmxData.Add(newRow);                
+                throw;
             }
-            return TmxData;
+
+            
         }
         
         public static ObservableCollection<TmxRow> FilterCollection(ObservableCollection<TmxRow> inputCollection, string sourceString, string targetString, bool regexSearchMethod)
@@ -82,21 +94,26 @@ namespace TmxTool.BaseFunctionalities
             }            
         }
 
-        
 
-        public static bool IsValidRegex(string patterToValidate)
+
+        public static bool IsValidRegex(params string[] patterns)
         {
-            try
+
+            foreach (var patterToValidate in patterns)
             {
-                Regex.Match("", patterToValidate);
+                try
+                {
+                    Regex.Match("", patterToValidate);
+
+                }
+                catch (ArgumentException)
+                {
+                    return false;
+                }
 
             }
-            catch (ArgumentException)
-            {
-                return false;
-            }
-
             return true;
+
         }
 
     }

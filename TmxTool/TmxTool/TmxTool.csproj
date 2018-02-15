@@ -67,6 +67,7 @@
     <Compile Include="BaseFunctionalities\TmxHandler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindowProperties.xaml.cs" />
     <Compile Include="MainWindow.xaml.cs" />
     <Compile Include="Model\TmxRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
