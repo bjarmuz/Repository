@@ -1,0 +1,48 @@
+﻿<Window x:Name="ApplicationWindow" x:Class="TmxTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TmxTool"
+        xmlns:c="clr-namespace:TmxTool.BaseFunctionalities"
+        
+        mc:Ignorable="d"
+        Title="SDL TmxTool 1.0"  Height="1020" Width="1849" Background="LightGray" WindowState="Maximized"
+        
+        >
+
+    <Window.Resources>
+        <Style x:Name="MyGridCell" TargetType="DataGrid">
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="103*"/>
+            <ColumnDefinition Width="1738*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="BrowseButton" Content="Browse" HorizontalAlignment="Left" Margin="789,38,0,0" VerticalAlignment="Top" Width="75" Click="BrowseButton_Click" Grid.Column="1"/>
+        <TextBox x:Name="FolderPath" HorizontalAlignment="Left" Height="23" Margin="33,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="839" 
+                 Text="{Binding ElementName=ApplicationWindow,
+                 Path=SelectedPath,                    
+                 UpdateSourceTrigger=PropertyChanged, 
+                 Mode=TwoWay}" Grid.ColumnSpan="2" TextChanged="FolderPath_TextChanged"/>
+        <Button x:Name="LoadButton" Content="Load TMX" HorizontalAlignment="Left" Margin="33,69,0,0" VerticalAlignment="Top" Width="75" Click="LoadButton_Click" Grid.ColumnSpan="2"/>
+        <DataGrid x:Name="DataGridView"  HorizontalAlignment="Left" Height="834" Margin="33,133,0,0" VerticalAlignment="Top" Width="1616" SelectionUnit="Cell" LoadingRow="DataGridView_LoadingRow" CanUserAddRows="False" 
+                  ItemsSource="{Binding ElementName=ApplicationWindow, 
+                  Path=MainCollection,
+                  UpdateSourceTrigger=PropertyChanged}"                  
+                  DisplayMemberPath="" 
+                  IsSynchronizedWithCurrentItem="True" ColumnWidth="300" Grid.ColumnSpan="2">
+        </DataGrid>
+        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="20" Margin="17,69,0,0" VerticalAlignment="Top" Width="144" Grid.Column="1"/>
+        <TextBox x:Name="SourceFilter" HorizontalAlignment="Left" Height="23" Margin="36,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" TextChanged="SourceFilter_TextChanged" Grid.Column="1" Text="{Binding ElementName=ApplicationWindow, Path=SourceFilterString, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Content="Source Text Filter" HorizontalAlignment="Left" Margin="30,103,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="104" Height="23"/>
+        <Label Content="Target Text Filter" Grid.Column="1" HorizontalAlignment="Left" Margin="285,102,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TargetFilter" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="390,103,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="230" TextChanged="TargetFilter_TextChanged" Text="{Binding ElementName=ApplicationWindow, Path=TargetFilterString, UpdateSourceTrigger=PropertyChanged}"/>
+        <CheckBox x:Name="RegexBoolCheckBox" Content="Regex Search" Grid.Column="1" HorizontalAlignment="Left" Margin="635,108,0,0" VerticalAlignment="Top" IsChecked="{Binding ElementName=ApplicationWindow, Path=RegexSearchMethod}"/>
+
+    </Grid>
+</Window>

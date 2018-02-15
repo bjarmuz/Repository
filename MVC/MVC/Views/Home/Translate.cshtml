@@ -1,0 +1,15 @@
+﻿@using MVC.Models
+@model MVC.Models.TranslatingModel
+
+
+
+@{
+    ViewBag.Title = "Translate";
+
+}
+
+<h2>Translate</h2>
+<h3>@ViewBag.Message</h3>
+<h2>@Html.Partial("../FileType/_TestView", Model.ContentType)</h2>
+
+
