@@ -37,6 +37,7 @@ namespace TmxTool.BaseFunctionalities
         {
             List<string> TempList = new List<string>(); 
             if (pathToFiles.EndsWith(".tmx", StringComparison.CurrentCultureIgnoreCase))
+
             {
                 TempList.Add(pathToFiles);
             }
@@ -45,6 +46,7 @@ namespace TmxTool.BaseFunctionalities
                 try
                 {
                     TempList = Directory.GetFiles(pathToFiles).Where(k => k.EndsWith(".tmx", StringComparison.CurrentCultureIgnoreCase)).ToList();
+
                 }
                 catch (Exception e)
                 {

@@ -51,7 +51,10 @@ namespace TmxTool
             }
             catch (Exception)
             {
+
                 WarningMessage = "Invalid path...";
+
+
                 return;
             }
 
