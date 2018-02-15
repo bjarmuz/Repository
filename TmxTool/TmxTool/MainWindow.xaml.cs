@@ -53,7 +53,7 @@ namespace TmxTool
                 if (value == selectedPath)
                     return;
                 selectedPath = value;
-                OnPropertyChanged("SelectedPath");                
+                OnPropertyChanged("SelectedPath");                //use nameof
             }
         }
 
