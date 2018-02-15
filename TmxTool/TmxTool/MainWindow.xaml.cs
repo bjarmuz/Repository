@@ -113,7 +113,7 @@ namespace TmxTool
             }
             catch (Exception)
             {
-
+// dodaj message boxa ktory wyswietli error. 
                 return;
             }
 
