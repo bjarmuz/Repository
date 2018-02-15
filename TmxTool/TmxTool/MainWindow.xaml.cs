@@ -41,7 +41,7 @@ namespace TmxTool
                 if (value == mainCollection)
                     return;
                 mainCollection = value;
-                OnPropertyChanged("MainCollection");
+                OnPropertyChanged();
             }
         }
 
@@ -53,7 +53,7 @@ namespace TmxTool
                 if (value == selectedPath)
                     return;
                 selectedPath = value;
-                OnPropertyChanged("SelectedPath");                //use nameof
+                OnPropertyChanged();                
             }
         }
 
@@ -62,7 +62,7 @@ namespace TmxTool
         {
             get { return regexSearchMethod; }
             set { regexSearchMethod = value;
-                OnPropertyChanged("RegexSearchMethod");
+                OnPropertyChanged();
             }
         }
 
@@ -75,7 +75,7 @@ namespace TmxTool
                 if (value == sourceFilterString)
                     return;
                 sourceFilterString = value;
-                OnPropertyChanged("SourceFilterString");
+                OnPropertyChanged();
             }
         }
 
@@ -88,7 +88,7 @@ namespace TmxTool
                 if (value == targetFilterString)
                     return;
                 targetFilterString = value;
-                OnPropertyChanged("TargetFilterString");
+                OnPropertyChanged();
             }
         }
         
@@ -161,7 +161,7 @@ namespace TmxTool
             }            
         }
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string propertyName)
+        private void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
