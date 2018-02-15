@@ -34,23 +34,23 @@ namespace TmxTool.BaseFunctionalities
         
         public static List<string> GetFileList(string pathToFiles)
         {
-            List<string> FileList = new List<string>(); // fix naming
+            List<string> TempList = new List<string>(); 
             if (pathToFiles.Contains(".tmx"))
             {
-                FileList.Add(pathToFiles);
+                TempList.Add(pathToFiles);
             }
             else
             {
                 try
                 {
-                    FileList = Directory.GetFiles(pathToFiles).Where(k => k.Contains(".tmx")).ToList();
+                    TempList = Directory.GetFiles(pathToFiles).Where(k => k.Contains(".tmx")).ToList();
                 }
                 catch (Exception)
                 {
                     
                 }                
             }            
-            return FileList;
+            return TempList;
         }
 
         public static ObservableCollection<TmxRow> ReadTmxData(List<string> listOfFiles)
