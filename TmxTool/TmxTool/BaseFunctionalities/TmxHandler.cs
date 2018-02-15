@@ -17,7 +17,7 @@ using System.Text.RegularExpressions;
 
 namespace TmxTool.BaseFunctionalities
 {
-    public class TmxHandler
+    public static class TmxHandler
     {
         public const string XPathTU = "//tu";
 
@@ -34,7 +34,7 @@ namespace TmxTool.BaseFunctionalities
         
         public static List<string> GetFileList(string pathToFiles)
         {
-            List<string> FileList = new List<string>();
+            List<string> FileList = new List<string>(); // fix naming
             if (pathToFiles.Contains(".tmx"))
             {
                 FileList.Add(pathToFiles);
