@@ -49,12 +49,9 @@ namespace TmxTool
             {
                fileList = TmxHandler.GetFileList(SelectedPath);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                WarningMessage = "Invalid path...";
-
-
+                WarningMessage = "Error occurred " + ex.Message;
                 return;
             }
 
