@@ -39,6 +39,9 @@ namespace TmxTool.BaseFunctionalities
             if (pathToFiles.EndsWith(".tmx", StringComparison.CurrentCultureIgnoreCase))
 
             {
+                if (!File.Exists(pathToFiles)){
+                     throw new IOException("File " + pathToFiles + " does not exist");   
+                }
                 TempList.Add(pathToFiles);
             }
             else
@@ -50,7 +53,7 @@ namespace TmxTool.BaseFunctionalities
                 }
                 catch (Exception e)
                 {
-                    System.Windows.MessageBox.Show("pusto");
+                    throw new IOException("Directory " + pathToFiles + " does not exist"); 
                 }                
             }            
             return TempList;
@@ -76,7 +79,7 @@ namespace TmxTool.BaseFunctionalities
             }
             catch (Exception)
             {
-                throw;
+             
             }
 
             
